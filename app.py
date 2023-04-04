@@ -37,7 +37,6 @@ logger.debug(f"Started app successfully with next config: {app.config}")
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-#from models import CrestoPass
 
 logger.debug("Connected to db successfully")
 
@@ -47,25 +46,6 @@ BSC_TESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545"
 BSC_TESTNET_CHAIN_ID = int(97)
 
 gen_dict = {
-    "cresto_pass": {
-        "name": "CRESTO PASS",
-        "category": "cresto_pass",
-        "image": "ipfs://QmcZW6yPYtyLMRPtQzWEzWnXg1VRaMBA784wjyg7GPo3WE",
-        "description": (
-            "Cresto Pass is a game pass that gives the following bonuses:\n\n"+
-            "1. Gives you the opportunity to buy 5 chests at cresto.app at a 30% discount after launching the game.\n\n"+
-            "2. Gives you a greatly increased chance (75%) of participating in IDO at cresto.app\n\n"+
-            "3. Gives access to private restaurant auctions.\n\n"+
-            "4. Allows you to get 1 vote in DAO Cresto\n\n"+
-            "The only way to get a Cresto Pass is to win it in an airdrop."
-        )
-    },
-    "cresto_voucher": {
-        "name": "CRESTO VOUCHER",
-        "category": "cresto_voucher",
-        "image": "ipfs://Qmdqkp2c4ivyqcLJ5sFcTUGDMUpAuF1V56oMqhiouaRkb4",
-        "description": "Gives 30% off a single purchase at cresto.app"
-    },
     "contract_names": {
         "alpha_pass_basic": "QmXr9rR5RGrzCKz5Mq1pMAJU5AFt4E8qtGM9xKw6ZuNjX7",
         "alpha_pass_privilege": "Qmb62BKazvifhpNkezetE9aME7CLrPnEaCwZpJ4v1NZLid",
