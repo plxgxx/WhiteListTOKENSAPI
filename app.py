@@ -35,10 +35,10 @@ app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 
 logger.debug(f"Started app successfully with next config: {app.config}")
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
-logger.debug("Connected to db successfully")
+
+
+logger.debug("Connected to db successfull")
 
 BSC_MAINNET = "https://bsc-dataseed1.binance.org"
 BSC_MAINNET_CHAIN_ID = int(56)
