@@ -40,10 +40,21 @@ logger.debug(f"Started app successfully with next config: {app.config}")
 
 logger.debug("Connected to db successfull")
 
+MUMBAI_MAINNET = "https://polygon-mainnet.infura.io/v3/ac70fb62cc1640d6bee23da2d5881bfb"
+MUMBAI_MAINNET_CHAIN_ID = int(80001)
 BSC_MAINNET = "https://bsc-dataseed1.binance.org"
 BSC_MAINNET_CHAIN_ID = int(56)
+MUMBAI_TESTNET = "https://polygon-mumbai.infura.io/v3/ac70fb62cc1640d6bee23da2d5881bfb"
+MUMBAI_TESTNET_CHAIN_ID = int(80001)
 BSC_TESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545"
 BSC_TESTNET_CHAIN_ID = int(97)
+
+MAINNET_ENDPOINT = MUMBAI_MAINNET
+MAINNET_ENDPOINT_CHAIN_ID = MUMBAI_MAINNET_CHAIN_ID
+
+TESTNET_ENDPOINT = MUMBAI_TESTNET
+TESTNET_ENDPOINT_CHAIN_ID = MUMBAI_TESTNET_CHAIN_ID
+
 
 gen_dict = {
     "contract_names": {
@@ -90,9 +101,9 @@ def add_token():
 
             try:
                 if app.config["DEBUG"] == True:
-                    token_id = mint(owner_id, BSC_TESTNET, BSC_TESTNET_CHAIN_ID, token_name)
+                    token_id = mint(owner_id, TESTNET_ENDPOINT, TESTNET_ENDPOINT_CHAIN_ID, token_name)
                 else:
-                    token_id = mint(owner_id, BSC_MAINNET, BSC_MAINNET_CHAIN_ID, token_name)
+                    token_id = mint(owner_id, MAINNET_ENDPOINT, MAINNET_ENDPOINT_CHAIN_ID, token_name)
                 logger.info(f"Minting token with tokenId {token_id}...")
                 return redirect(url_for(".success_mint", tokenId=token_id))
             except Exception as e:
@@ -136,9 +147,9 @@ def add_token_multiple():
             try:
                 if app.config["DEBUG"] == True:
                    #token_id = multiple_mint(owner_id, BSC_TESTNET, BSC_TESTNET_CHAIN_ID)
-                    token_ids = multiple_mint(owner_id, token_amount, BSC_TESTNET, BSC_TESTNET_CHAIN_ID, token_name)
+                    token_ids = multiple_mint(owner_id, token_amount, TESTNET_ENDPOINT, TESTNET_ENDPOINT_CHAIN_ID, token_name)
                 else:
-                    token_ids = multiple_mint(owner_id, token_amount, BSC_MAINNET, BSC_MAINNET_CHAIN_ID, token_name)
+                    token_ids = multiple_mint(owner_id, token_amount, MAINNET_ENDPOINT, MAINNET_ENDPOINT_CHAIN_ID, token_name)
                 logger.info(f"Minting token with tokenId {token_ids}...")
                 return redirect(url_for(".success_multiple_mint", tokenIdlist=str(token_ids)))
             except Exception as e:

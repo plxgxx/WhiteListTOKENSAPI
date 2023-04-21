@@ -8,12 +8,12 @@ from loguru import logger
 
 load_dotenv()
 
-def mint(receiverAddress, bsc_endpoint, bsc_chain_id, token_name):
+def mint(receiverAddress, net_endpoint, net_chain_id, token_name):
 
-    w3 = Web3(Web3.HTTPProvider(bsc_endpoint))
+    w3 = Web3(Web3.HTTPProvider(net_endpoint))
     w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
-    logger.debug(f"Web3 connected to bsc at {bsc_endpoint}: {w3.is_connected()}")
+    logger.debug(f"Web3 connected to bsc at {net_endpoint}: {w3.is_connected()}")
 
     with open(f"./Abis/Abi_contract_{token_name}.json") as f:
         info_json = json.load(f)
@@ -27,7 +27,7 @@ def mint(receiverAddress, bsc_endpoint, bsc_chain_id, token_name):
     nonce = w3.eth.get_transaction_count(os.getenv("CONTRACT_OWNER_ADDRESS"))
 
     options = txn.build_transaction({
-        "chainId": bsc_chain_id,
+        "chainId": net_chain_id,
         # 'to': '0xc05D4536846168b93a83F289d8E14283D43cd515',
         'gas': txn.estimate_gas({"from": os.getenv("CONTRACT_OWNER_ADDRESS")}),
         'gasPrice': w3.to_wei(10, "gwei"),
@@ -49,12 +49,12 @@ def mint(receiverAddress, bsc_endpoint, bsc_chain_id, token_name):
     return tokenId
     
 
-def multiple_mint(receiverAddress, tokensAmount, bsc_endpoint, bsc_chain_id, token_name): # На один адрес
+def multiple_mint(receiverAddress, tokensAmount, net_endpoint, net_chain_id, token_name): # На один адрес
     
-    w3 = Web3(Web3.HTTPProvider(bsc_endpoint))
+    w3 = Web3(Web3.HTTPProvider(net_endpoint))
     w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
-    logger.debug(f"Web3 connected to bsc at {bsc_endpoint}: {w3.is_connected()}")
+    logger.debug(f"Web3 connected to bsc at {net_endpoint}: {w3.is_connected()}")
 
     with open(f"./Abis/Abi_contract_{token_name}.json") as f:
         info_json = json.load(f)
@@ -71,7 +71,7 @@ def multiple_mint(receiverAddress, tokensAmount, bsc_endpoint, bsc_chain_id, tok
         nonce = w3.eth.get_transaction_count(os.getenv("CONTRACT_OWNER_ADDRESS"))
 
         options = txn.build_transaction({
-            "chainId": bsc_chain_id,
+            "chainId": net_chain_id,
             # 'to': '0xc05D4536846168b93a83F289d8E14283D43cd515',
             'gas': txn.estimate_gas({"from": os.getenv("CONTRACT_OWNER_ADDRESS")}),
             'gasPrice': w3.to_wei(10, "gwei"),
